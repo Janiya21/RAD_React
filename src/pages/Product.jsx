@@ -36,24 +36,26 @@ class DriverLogin extends Component {
                     <div style={{marginTop: "40px"}} className="column">
                         <form style={{width: "40vw", marginLeft: "5vw"}} className="ui form" onSubmit={this.submitHandler}>
                             <div className="field">
-                                <label>Driver ID</label>
-                                <input name="driverId" placeholder="driverId" value={id} onChange={this.changeHandler}/>
+                                <label>Title</label>
+                                <input name="title" placeholder="title" onChange={this.changeHandler}/>
                             </div>
                             <div className="field">
-                                <label>Full Name</label>
-                                <input name="name" placeholder="name" value={name} onChange={this.changeHandler}/>
+                                <label>Price</label>
+                                <input name="price" placeholder="price" onChange={this.changeHandler}/>
                             </div>
                             <div className="field">
-                                <label>Email</label>
-                                <input name="email" placeholder="email" value={email} onChange={this.changeHandler}/>
+                                <label>Category</label>
+                                <select name="category" onChange={this.changeHandler} className="ui dropdown">
+                                    <option value="any" onChange={this.changeHandler}>Any Type</option>
+                                    <option value="general" onChange={this.changeHandler}>General</option>
+                                </select>
                             </div>
                             <div className="field">
-                                <label>Street</label>
-                                <input name="street_no" placeholder="street_no" value={street_no} onChange={this.changeHandler}/>
-                            </div>
-                            <div className="field">
-                                <label>Zip Code</label>
-                                <input name="zip_code" placeholder="zip_code" value={zipCode} onChange={this.changeHandler}/>
+                                <label>Description</label>
+                                <select name="description" onChange={this.changeHandler} className="ui dropdown">
+                                    <option value="any" onChange={this.changeHandler}>Any Type</option>
+                                    <option value="general" onChange={this.changeHandler}>General</option>
+                                </select>
                             </div>
 
                         </form>
