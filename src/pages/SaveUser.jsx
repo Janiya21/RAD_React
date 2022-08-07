@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Checkbox, Form } from 'semantic-ui-react';
+import { Table, TableBody, TableCell } from 'semantic-ui-react';
 import {Link} from "react-router-dom";
 
 class DriverLogin extends Component {
@@ -33,7 +33,7 @@ class DriverLogin extends Component {
         return (
             <div className="ui">
                 <div className="ui two column grid">
-                    <div style={{marginTop: "40px"}} className="middle aligned column">
+                    <div style={{marginTop: "40px"}} className="column">
                         <form style={{width: "40vw", marginLeft: "5vw"}} className="ui form"
                               onSubmit={this.submitHandler}>
                             <div className="field">
@@ -71,6 +71,25 @@ class DriverLogin extends Component {
                                     type="submit">Save User
                             </button>
                         </form>
+                    </div>
+                    <div className={"column"}>
+                        <Table celled style={{marginLeft:"-60px", width:"50vw"}}>
+                            <Table.Header>
+                                <Table.Row>
+                                    <Table.HeaderCell>NIC</Table.HeaderCell>
+                                    <Table.HeaderCell>Name</Table.HeaderCell>
+                                    <Table.HeaderCell>NIC/License</Table.HeaderCell>
+                                    <Table.HeaderCell>Email</Table.HeaderCell>
+                                    <Table.HeaderCell>TelNo</Table.HeaderCell>
+                                    <Table.HeaderCell>Status</Table.HeaderCell>
+                                    <Table.HeaderCell>Delete</Table.HeaderCell>
+                                </Table.Row>
+                            </Table.Header>
+
+                            <Table.Body>
+
+                            </Table.Body>
+                        </Table>
                     </div>
                 </div>
             </div>
