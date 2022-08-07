@@ -2,17 +2,12 @@ import React, { Component } from 'react';
 import { Button, Checkbox, Form } from 'semantic-ui-react';
 import {Link} from "react-router-dom";
 
-class DriverLogin extends Component {
+class LoginPage extends Component {
 
     constructor(props) {
         super(props)
 
         this.state = {
-            driverId: '',
-            name: '',
-            email:'',
-            telNo:'',
-            password:'',
             logID:'',
             loginPassword: '',
             loginValidLocation:'#'
@@ -63,7 +58,7 @@ class DriverLogin extends Component {
                         </button>
 
                        <p>Don't have Account ? <a href="url">
-                           <Link to={""}></Link>
+                           <Link to={"/regUser"}>Click here</Link>
                        </a> </p>
 
                     </form>
@@ -74,4 +69,4 @@ class DriverLogin extends Component {
     }
 }
 
-export default DriverLogin;
+export default LoginPage;
