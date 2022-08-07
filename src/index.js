@@ -7,6 +7,8 @@ import Login from './pages/LoginPage';
 import RegUser from './pages/SaveUser';
 import Dashboard from "./pages/Dashboard";
 import Layout2 from "./pages/Layout2";
+import Product from './pages/Product'
+import Cart from './pages/Cart';
 
 export default function App(props) {
     console.log(props);
@@ -19,6 +21,8 @@ export default function App(props) {
                 </Route>
                 <Route element={<Layout2 />}>
                     <Route path="dashboard" element={<Dashboard />} />
+                    <Route path="product" element={<Product />} />
+                    <Route path="cart" element={<Cart />} />
                 </Route>
 
             </Routes>
