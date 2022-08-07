@@ -52,7 +52,7 @@ class LoginPage extends Component {
                             </div>
                         </div>
                         <button style={{margin: "40px 0 30px 0vw"}} className="ui inverted primary button">
-                            <Link to={this.state.loginValidLocation}>
+                            <Link to="/dashboard">
                                 Log In
                             </Link>
                         </button>
