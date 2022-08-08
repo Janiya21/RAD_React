@@ -9,18 +9,76 @@ class LoginPage extends Component {
         super(props)
 
         this.state = {
-            userName:"",
-            password:""
+            products:'',
+            carts:'',
+            users:''
         }
+
+        this.countProducts = this.countProducts.bind(this)
+        this.countProducts();
+
+        this.countCarts = this.countCarts.bind(this)
+        this.countCarts();
+
+        this.countUsers = this.countUsers.bind(this)
+        this.countUsers();
     }
 
     changeHandler = (e) => {
         this.setState({ [e.target.name] : e.target.value});
     }
+
+    countProducts(){
+        fetch("https://fakestoreapi.com/products").then(
+            (response) => response.json()
+        ).then((data)=> {
+            console.log(data);
+
+            let count=0;
+            for (let d of data) {
+                count++;
+            }
+            this.setState({
+               products:count
+            })
+        })
+    }
+
+    countCarts(){
+        fetch("https://fakestoreapi.com/carts").then(
+            (response) => response.json()
+        ).then((data)=> {
+            console.log(data);
+
+            let count=0;
+            for (let d of data) {
+                count++;
+            }
+            this.setState({
+                carts:count
+            })
+        })
+    }
+
+    countUsers(){
+        fetch("https://fakestoreapi.com/users").then(
+            (response) => response.json()
+        ).then((data)=> {
+            console.log(data);
+
+            let count=0;
+            for (let d of data) {
+                count++;
+            }
+            this.setState({
+                users:count
+            })
+        })
+    }
  
     render() {
         const user = localStorage.getItem('loginID');
-
+        const {users,carts,products} = this.state;
         return (
             <div>
                 <h3 className="ui block header">Hello {user} !!</h3>
@@ -33,7 +91,7 @@ class LoginPage extends Component {
                                 </Link>
                             </Button>
                             <Card.Content extra>
-                                <Icon name='user' />60 Products
+                                <Icon name='user' />{products} Products
                             </Card.Content>
                         </Card>
                     </Grid.Column>
@@ -45,7 +103,7 @@ class LoginPage extends Component {
                                </Link>
                             </Button>
                             <Card.Content extra>
-                                <Icon name='user' />12 Carts
+                                <Icon name='user' />{carts} Carts
                             </Card.Content>
                         </Card>
                     </Grid.Column>
@@ -57,7 +115,7 @@ class LoginPage extends Component {
                                 </Link>
                             </Button>
                             <Card.Content extra>
-                                <Icon name='user' />22 Users
+                                <Icon name='user' />{users} Users
                             </Card.Content>
                         </Card>
                     </Grid.Column>
