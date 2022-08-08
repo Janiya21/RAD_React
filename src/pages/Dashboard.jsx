@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Grid, Card, Button ,Icon } from 'semantic-ui-react';
 import {Link} from "react-router-dom";
+import axios from "axios";
 
 class LoginPage extends Component {
 
@@ -8,17 +9,13 @@ class LoginPage extends Component {
         super(props)
 
         this.state = {
-            user:""
+            userName:"",
+            password:""
         }
     }
 
     changeHandler = (e) => {
         this.setState({ [e.target.name] : e.target.value});
-    }
-
-    submitHandler = async (e) => {
-        e.preventDefault();
-        console.log(this.state);
     }
  
     render() {

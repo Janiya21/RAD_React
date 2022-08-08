@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, TableBody, TableCell } from 'semantic-ui-react';
+import {Button, Popup, Table, TableBody, TableCell} from 'semantic-ui-react';
 import {Link} from "react-router-dom";
 
 class DriverLogin extends Component {
@@ -8,6 +8,7 @@ class DriverLogin extends Component {
         super(props)
 
         this.state = {
+            posts:[],
             driverId: '',
             name: '',
             email:'',
@@ -17,6 +18,9 @@ class DriverLogin extends Component {
             loginPassword: '',
             loginValidLocation:'#'
         }
+
+        this.callAPI = this.callAPI.bind(this)
+        this.callAPI();
     }
 
     changeHandler = (e) => {
@@ -27,13 +31,39 @@ class DriverLogin extends Component {
         e.preventDefault();
         console.log(this.state);
     }
+
+    callAPI(){
+        fetch("https://fakestoreapi.com/users").then(
+            (response) => response.json()
+        ).then((data)=> {
+            console.log(data);
+            this.setState({
+                posts:data
+            })
+        })
+    }
  
     render() {
+        let tb_data = this.state.posts.map((item)=>{
+            return (
+                <Table.Row>
+                    <Table.Cell>{item.id}</Table.Cell>
+                    <Table.Cell>{item.name.firstname} {item.name.lastname}</Table.Cell>
+                    <Table.Cell>{item.username}</Table.Cell>
+                    <Table.Cell>{item.email}</Table.Cell>
+                    <Table.Cell>{item.address.zipcode}</Table.Cell>
+                    <Table.Cell>{item.address.number} {item.address.street} {item.address.city}</Table.Cell>
+                    <Table.Cell>{item.phone}</Table.Cell>
+
+                </Table.Row>
+            )
+        });
+
         const {id,name,email,telNo,password,street_no, zipCode} = this.state;
         return (
             <div className="ui">
                 <div className="ui two column grid">
-                    <div style={{marginTop: "40px"}} className="column">
+                    <div style={{marginTop: "40px", width:"30vw"}} className="column">
                         <form style={{width: "40vw", marginLeft: "5vw"}} className="ui form"
                               onSubmit={this.submitHandler}>
                             <div className="equal width fields">
@@ -76,7 +106,7 @@ class DriverLogin extends Component {
 
                             <div className="equal width fields">
                                 <div className="field">
-                                    <button className="ui primary button" style={{marginLeft: "10vw"}} type="submit">
+                                    <button className="ui primary button" style={{marginLeft: "6vw"}} type="submit">
                                         Save User
                                     </button>
                                 </div>
@@ -88,22 +118,22 @@ class DriverLogin extends Component {
                             </div>
                         </form>
                     </div>
-                    <div className={"column"}>
-                        <Table celled style={{marginLeft:"-60px", width:"50vw"}}>
+                    <div className={"column"} >
+                        <Table celled style={{marginLeft:"100px", width:"60vw"}}>
                             <Table.Header>
                                 <Table.Row>
-                                    <Table.HeaderCell>NIC</Table.HeaderCell>
+                                    <Table.HeaderCell>ID</Table.HeaderCell>
                                     <Table.HeaderCell>Name</Table.HeaderCell>
-                                    <Table.HeaderCell>NIC/License</Table.HeaderCell>
+                                    <Table.HeaderCell>Username</Table.HeaderCell>
                                     <Table.HeaderCell>Email</Table.HeaderCell>
-                                    <Table.HeaderCell>TelNo</Table.HeaderCell>
-                                    <Table.HeaderCell>Status</Table.HeaderCell>
-                                    <Table.HeaderCell>Delete</Table.HeaderCell>
+                                    <Table.HeaderCell>Zipcode</Table.HeaderCell>
+                                    <Table.HeaderCell>Address</Table.HeaderCell>
+                                    <Table.HeaderCell>Telephone</Table.HeaderCell>
                                 </Table.Row>
                             </Table.Header>
 
                             <Table.Body>
-
+                                {tb_data}
                             </Table.Body>
                         </Table>
                     </div>
