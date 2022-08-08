@@ -36,40 +36,56 @@ class DriverLogin extends Component {
                     <div style={{marginTop: "40px"}} className="column">
                         <form style={{width: "40vw", marginLeft: "5vw"}} className="ui form"
                               onSubmit={this.submitHandler}>
-                            <div className="field">
-                                <label>Driver ID</label>
-                                <input name="driverId" placeholder="driverId" value={id}
-                                       onChange={this.changeHandler}/>
+                            <div className="equal width fields">
+                                <div className="field">
+                                    <input name="firstName" placeholder="first name" value={password} onChange={this.changeHandler}/>
+                                </div>
+                                <div className="field">
+                                    <input name="lastName" placeholder="last name" value={password} onChange={this.changeHandler}/>
+                                </div>
                             </div>
                             <div className="field">
-                                <label>Full Name</label>
-                                <input name="name" placeholder="name" value={name} onChange={this.changeHandler}/>
+                                <input name="userName" placeholder="username" value={email} onChange={this.changeHandler}/>
                             </div>
                             <div className="field">
-                                <label>Email</label>
-                                <input name="email" placeholder="email" value={email} onChange={this.changeHandler}/>
+                                <input name="password" type="password" placeholder="password" value={street_no} onChange={this.changeHandler}/>
                             </div>
                             <div className="field">
-                                <label>Street</label>
-                                <input name="street_no" placeholder="street_no" value={street_no} onChange={this.changeHandler}/>
+                                <input name="city" placeholder="city" value={zipCode} onChange={this.changeHandler}/>
                             </div>
                             <div className="field">
-                                <label>Zip Code</label>
-                                <input name="zip_code" placeholder="zip_code" value={zipCode} onChange={this.changeHandler}/>
+                                <input name="street" placeholder="street" value={telNo} onChange={this.changeHandler}/>
                             </div>
                             <div className="field">
-                                <label>TelNo</label>
-                                <input name="telNo" placeholder="telephone" value={telNo}
-                                       onChange={this.changeHandler}/>
+                                <input name="streetNo" placeholder="street number" value={password} onChange={this.changeHandler}/>
                             </div>
                             <div className="field">
-                                <label>Password</label>
-                                <input name="password" type="password" placeholder="enter a password" value={password}
-                                       onChange={this.changeHandler}/>
+                                <input name="zipCode" placeholder="zip code" value={password} onChange={this.changeHandler}/>
                             </div>
-                            <button className="ui primary button" style={{margin: "40px 0 0 15vw"}}
-                                    type="submit">Save User
-                            </button>
+                            <div className="equal width fields">
+                                <div className="field">
+                                    <input name="latValue" placeholder="lat value" value={password} onChange={this.changeHandler}/>
+                                </div>
+                                <div className="field">
+                                    <input name="latValue" placeholder="lat value" value={password} onChange={this.changeHandler}/>
+                                </div>
+                            </div>
+                            <div className="field">
+                                <input name="tel" placeholder="telephone no" value={password} onChange={this.changeHandler}/>
+                            </div>
+
+                            <div className="equal width fields">
+                                <div className="field">
+                                    <button className="ui primary button" style={{marginLeft: "10vw"}} type="submit">
+                                        Save User
+                                    </button>
+                                </div>
+                                <div className="field">
+                                    <button className="ui secondary button"  type="submit">
+                                        clear
+                                    </button>
+                                </div>
+                            </div>
                         </form>
                     </div>
                     <div className={"column"}>

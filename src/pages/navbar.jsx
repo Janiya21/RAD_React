@@ -10,27 +10,12 @@ function Navbar() {
                 <a class="active item">
                     <Link to="/">Home</Link>
                 </a>
-                <Menu inverted pointing vertical>
-                    <Dropdown item text='Registrations'>
-                        <Dropdown.Menu >
-                            <Dropdown.Item style={{height:"7vh"}}>
-                                <a class="item">
-                                  <Link style={{color:"black"}} to="/customer"><h5>Customer</h5></Link>
-                                </a>
-                            </Dropdown.Item>
-                            <Dropdown.Item>
-                                <a class="item">
-                                  <Link style={{color:"black"}} to="/driver"><h5>Driver</h5></Link>
-                                </a>
-                            </Dropdown.Item>
-                            <Dropdown.Item>
-                                <a class="item">
-                                    <Link style={{color:"black"}} to="/admin"><h5>Admin</h5></Link>
-                                </a>
-                            </Dropdown.Item>
-                        </Dropdown.Menu>
-                    </Dropdown>
-                </Menu>
+                <a className="active item">
+                    <Link to="/">Product</Link>
+                </a>
+                <a className="active item">
+                    <Link to="/">Cart</Link>
+                </a>
             </div>
         </div>
         );

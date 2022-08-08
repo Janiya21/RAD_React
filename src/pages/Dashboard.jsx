@@ -8,9 +8,7 @@ class LoginPage extends Component {
         super(props)
 
         this.state = {
-            logID:'',
-            loginPassword: '',
-            loginValidLocation:'#'
+            user:""
         }
     }
 
@@ -24,9 +22,11 @@ class LoginPage extends Component {
     }
  
     render() {
-        const {logID, loginPassword} = this.state;
+        const user = localStorage.getItem('loginID');
+
         return (
             <div>
+                <h3 className="ui block header">Hello {user} !!</h3>
                 <Grid style={{margin:"10vh 0 0 10vw"}}>
                     <Grid.Column width={5}>
                         <Card style={{height:"17vh"}}>
@@ -55,7 +55,7 @@ class LoginPage extends Component {
                     <Grid.Column width={5}>
                         <Card style={{height:"17vh"}}>
                             <Button>
-                                <Link to={""}>
+                                <Link to={"/regUser"}>
                                     <Card.Content style={{margin:"2vh 0 0 0vw", height:"8vh"}} header='Users' />
                                 </Link>
                             </Button>
