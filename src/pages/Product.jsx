@@ -57,7 +57,7 @@ class DriverLogin extends Component {
 
     postProduct = async (data) => {
         const promise = new Promise((resolve, reject) => {
-            axios.post('https://fakestoreapi.com/carts', data)
+            axios.post('https://fakestoreapi.com/products', data)
                 .then((res) => {
                     return resolve(res)
                 })
