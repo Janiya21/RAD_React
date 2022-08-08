@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Button, Popup, Table, TableBody, TableCell} from 'semantic-ui-react';
 import {Link} from "react-router-dom";
+import axios from "axios";
 
 class DriverLogin extends Component {
 
@@ -9,30 +10,37 @@ class DriverLogin extends Component {
 
         this.state = {
             posts:[],
-            driverId: '',
-            name: '',
-            email:'',
-            telNo:'',
-            password:'',
-            logID:'',
-            loginPassword: '',
-            loginValidLocation:'#'
+            sendData: {
+                email:null,
+                username:null,
+                password:null,
+                name:{
+                    firstname:null,
+                    lastname:null
+                },
+                address:{
+                    city:null,
+                    street:null,
+                    number:null,
+                    zipcode:null,
+                    geolocation:{
+                        lat:null,
+                        long:null
+                    }
+                },
+                phone:null
+            }
         }
 
-        this.callAPI = this.callAPI.bind(this)
-        this.callAPI();
+        this.getAllUsers = this.getAllUsers.bind(this)
+        this.getAllUsers();
     }
 
     changeHandler = (e) => {
         this.setState({ [e.target.name] : e.target.value});
     }
 
-    submitHandler = async (e) => {
-        e.preventDefault();
-        console.log(this.state);
-    }
-
-    callAPI(){
+    getAllUsers(){
         fetch("https://fakestoreapi.com/users").then(
             (response) => response.json()
         ).then((data)=> {
@@ -42,8 +50,36 @@ class DriverLogin extends Component {
             })
         })
     }
+
+    submitHandler = async (e) => {
+        e.preventDefault();
+        console.log(this.state);
+
+        let res = await this.postUser(this.state.sendData);
+        console.log(res);
+    }
+
+    postUser = async (data) => {
+        const promise = new Promise((resolve, reject) => {
+            axios.post('https://fakestoreapi.com/users', data)
+                .then((res) => {
+                    return resolve(res)
+                })
+                .catch((err) => {
+                    return resolve(err)
+                })
+        });
+
+        return await promise;
+    }
  
     render() {
+
+        const {email,username,password,phone} = this.state.sendData;
+        const {firstname,lastname} = this.state.sendData.name;
+        const {city,street,number,zipcode} = this.state.sendData.address;
+        const {lat,long} = this.state.sendData.address.geolocation;
+
         let tb_data = this.state.posts.map((item)=>{
             return (
                 <Table.Row>
@@ -59,49 +95,52 @@ class DriverLogin extends Component {
             )
         });
 
-        const {id,name,email,telNo,password,street_no, zipCode} = this.state;
         return (
             <div className="ui">
                 <div className="ui two column grid">
                     <div style={{marginTop: "40px", width:"30vw"}} className="column">
-                        <form style={{width: "40vw", marginLeft: "5vw"}} className="ui form"
-                              onSubmit={this.submitHandler}>
+
+                        <form style={{width: "40vw", marginLeft: "5vw"}} className="ui form" onSubmit={this.submitHandler}>
+
                             <div className="equal width fields">
                                 <div className="field">
-                                    <input name="firstName" placeholder="first name" value={password} onChange={this.changeHandler}/>
+                                    <input name="firstname" placeholder="first name" value={firstname} onChange={this.changeHandler}/>
                                 </div>
                                 <div className="field">
-                                    <input name="lastName" placeholder="last name" value={password} onChange={this.changeHandler}/>
+                                    <input name="lastname" placeholder="last name" value={lastname} onChange={this.changeHandler}/>
                                 </div>
                             </div>
                             <div className="field">
-                                <input name="userName" placeholder="username" value={email} onChange={this.changeHandler}/>
+                                <input name="username" placeholder="username" value={username} onChange={this.changeHandler}/>
                             </div>
                             <div className="field">
-                                <input name="password" type="password" placeholder="password" value={street_no} onChange={this.changeHandler}/>
+                                <input name="email" placeholder="email" value={email} onChange={this.changeHandler}/>
                             </div>
                             <div className="field">
-                                <input name="city" placeholder="city" value={zipCode} onChange={this.changeHandler}/>
+                                <input name="password" type="password" placeholder="password" value={password} onChange={this.changeHandler}/>
                             </div>
                             <div className="field">
-                                <input name="street" placeholder="street" value={telNo} onChange={this.changeHandler}/>
+                                <input name="city" placeholder="city" value={city} onChange={this.changeHandler}/>
                             </div>
                             <div className="field">
-                                <input name="streetNo" placeholder="street number" value={password} onChange={this.changeHandler}/>
+                                <input name="street" placeholder="street" value={street} onChange={this.changeHandler}/>
                             </div>
                             <div className="field">
-                                <input name="zipCode" placeholder="zip code" value={password} onChange={this.changeHandler}/>
+                                <input name="number" placeholder="street number" value={number} onChange={this.changeHandler}/>
+                            </div>
+                            <div className="field">
+                                <input name="zipcode" placeholder="zip code" value={zipcode} onChange={this.changeHandler}/>
                             </div>
                             <div className="equal width fields">
                                 <div className="field">
-                                    <input name="latValue" placeholder="lat value" value={password} onChange={this.changeHandler}/>
+                                    <input name="lat" placeholder="lat value" value={lat} onChange={this.changeHandler}/>
                                 </div>
                                 <div className="field">
-                                    <input name="latValue" placeholder="lat value" value={password} onChange={this.changeHandler}/>
+                                    <input name="long" placeholder="long value" value={long} onChange={this.changeHandler}/>
                                 </div>
                             </div>
                             <div className="field">
-                                <input name="tel" placeholder="telephone no" value={password} onChange={this.changeHandler}/>
+                                <input name="phone" placeholder="telephone no" value={phone} onChange={this.changeHandler}/>
                             </div>
 
                             <div className="equal width fields">

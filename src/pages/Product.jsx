@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import {Table, TableBody, Popup, Image} from 'semantic-ui-react';
-import {Link} from "react-router-dom";
+import {Dropdown} from "semantic-ui-react";
 
 class DriverLogin extends Component {
 
@@ -8,80 +7,119 @@ class DriverLogin extends Component {
         super(props)
 
         this.state = {
-            driverId: '',
-            name: '',
-            email:'',
-            telNo:'',
-            password:'',
-            logID:'',
-            loginPassword: '',
-            loginValidLocation:'#'
+            title:'',
+            price:'',
+            category:[],
+            description:[],
+            image:''
         }
+        this.getAllCategories = this.getAllCategories.bind(this)
+        this.getAllCategories();
+
+        this.getAllDesc = this.getAllDesc.bind(this)
+        this.getAllDesc();
     }
 
     changeHandler = (e) => {
         this.setState({ [e.target.name] : e.target.value});
     }
 
+    getAllCategories(){
+        fetch("https://fakestoreapi.com/products/categories").then(
+            (response) => response.json()
+        ).then((data)=> {
+            console.log(data);
+            this.setState({
+                category:data
+            })
+        })
+    }
+
+    getAllDesc(){
+        fetch("https://fakestoreapi.com/products/categories").then(
+            (response) => response.json()
+        ).then((data)=> {
+            console.log(data);
+            this.setState({
+                description:data
+            })
+        })
+    }
+
     submitHandler = async (e) => {
         e.preventDefault();
         console.log(this.state);
     }
+
+    onImageChange = (event) => {
+        if (event.target.files && event.target.files[0]) {
+            let reader = new FileReader();
+            reader.onload = (e) => {
+                this.setState({image: e.target.result});
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    }
  
     render() {
-        const {id,name,email,telNo,password,street_no, zipCode} = this.state;
+        const {title,price,category,description} = this.state;
         return (
             <div className="ui">
                 <div className="ui two column grid">
-                    <div style={{marginTop: "40px"}} className="column">
-                        <form style={{width: "40vw", marginLeft: "5vw"}} className="ui form" onSubmit={this.submitHandler}>
-                            <div className="field">
-                                <label>Title</label>
-                                <input name="title" placeholder="title" onChange={this.changeHandler}/>
-                            </div>
-                            <div className="field">
-                                <label>Price</label>
-                                <input name="price" placeholder="price" onChange={this.changeHandler}/>
-                            </div>
-                            <div className="field">
-                                <label>Category</label>
-                                <select name="category" onChange={this.changeHandler} className="ui dropdown">
-                                    <option value="any" onChange={this.changeHandler}>Any Type</option>
-                                    <option value="general" onChange={this.changeHandler}>General</option>
-                                </select>
-                            </div>
-                            <div className="field">
-                                <label>Description</label>
-                                <select name="description" onChange={this.changeHandler} className="ui dropdown">
-                                    <option value="any" onChange={this.changeHandler}>Any Type</option>
-                                    <option value="general" onChange={this.changeHandler}>General</option>
-                                </select>
-                            </div>
+                    <div style={{marginTop: "40px",width: "90vw"}} className="column">
+                        <form style={{width: "90vw", marginLeft: "5vw"}} className="ui form" onSubmit={this.submitHandler}>
+                           <div class={"equal with fields"}>
+                               <div className="field">
+                                   <div className="field">
+                                       <label>Title</label>
+                                       <input name="title" placeholder="title" value={title} onChange={this.changeHandler}/>
+                                   </div>
+                                   <div className="field">
+                                       <label>Price</label>
+                                       <input name="price" placeholder="price" value={price} onChange={this.changeHandler}/>
+                                   </div>
+                                   <div className="field">
+                                       <label>Category</label>
+                                       <Dropdown inline options={this.state.category} selection />
+                                   </div>
+                                   <div className="field">
+                                       <label>Description</label>
+                                       <Dropdown inline options={this.state.description} selection />
+                                   </div>
 
+                                   <div className="equal width fields">
+                                       <div className="field">
+                                           <button className="ui secondary button"  style={{margin: "10vh 0 0 15vw"}} type="submit">
+                                               clear
+                                           </button>
+                                       </div>
+                                       <div className="field">
+                                           <button className="ui primary button" style={{margin: "10vh 0 0 5vw"}} type="submit">
+                                               Save User
+                                           </button>
+                                       </div>
+                                   </div>
+                               </div>
+                               <div className="field" style={{marginLeft:"8vw"}}>
+                                   <div className="equal width fields">
+                                       <div className="field">
+                                           <b>Please Attach Photo Here :</b>
+                                           <input type="file" onChange={this.onImageChange} className="filetype" id="group_image"/>
+                                       </div>
+
+                                       <div className="field" id="file">
+                                           <img id="target" style={{width:"20vw"}} src={this.state.image}/>
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
                         </form>
-                    </div>
-                    <div className={"column"}>
-                        <div className="equal width fields">
-                            <div className="field">
-                                <b>Please Attach Photo Here :</b>
-                                <Popup content='Add users to your feed'
-                                       trigger={
-                                           <input style={{margin: "10px 0 0 0px"}} id="file" name="myFile"
-                                                  type="file"/>}
-                                />
-
-                            </div>
-
-                            <div className="field" id="file">
-                                <Image style={{height:"30vh", margin:"5vh 0 0 5vw"}} src='https://cdn-icons-png.flaticon.com/512/149/149071.png' />
-                            </div>
-
-                        </div>
                     </div>
                 </div>
             </div>
         );
     }
+
 }
 
 export default DriverLogin;
