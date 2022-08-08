@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Dropdown} from "semantic-ui-react";
+import axios from "axios";
 
 class DriverLogin extends Component {
 
@@ -49,6 +50,23 @@ class DriverLogin extends Component {
     submitHandler = async (e) => {
         e.preventDefault();
         console.log(this.state);
+
+        let res = await this.postProduct(this.state);
+        console.log(res);
+    }
+
+    postProduct = async (data) => {
+        const promise = new Promise((resolve, reject) => {
+            axios.post('https://fakestoreapi.com/carts', data)
+                .then((res) => {
+                    return resolve(res)
+                })
+                .catch((err) => {
+                    return resolve(err)
+                })
+        });
+
+        return await promise;
     }
 
     onImageChange = (event) => {
@@ -80,22 +98,22 @@ class DriverLogin extends Component {
                                    </div>
                                    <div className="field">
                                        <label>Category</label>
-                                       <Dropdown inline options={this.state.category} selection />
+                                       <Dropdown inline options={category} selection />
                                    </div>
                                    <div className="field">
                                        <label>Description</label>
-                                       <Dropdown inline options={this.state.description} selection />
+                                       <Dropdown inline options={description} selection />
                                    </div>
 
                                    <div className="equal width fields">
                                        <div className="field">
-                                           <button className="ui secondary button"  style={{margin: "10vh 0 0 15vw"}} type="submit">
-                                               clear
+                                           <button className="ui secondary button"  style={{margin: "10vh 0 0 10vw", width:"8vw"}} type="submit">
+                                               Clear Fields
                                            </button>
                                        </div>
                                        <div className="field">
                                            <button className="ui primary button" style={{margin: "10vh 0 0 5vw"}} type="submit">
-                                               Save User
+                                               Save Product
                                            </button>
                                        </div>
                                    </div>
